@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/header :: head(~{}, ~{})"></div>
+<body>
+    <header>
+        <div th:replace="fragments/nav-bar :: nav_bar"></div>
+    </header>
+    <main class="container-fluid"></main>
+    <footer th:include="fragments/footer :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body th:fragment="nav_bar">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0" th:with="view=${#httpServletRequest.getServletPath()}">
+                <li sec:authorize ="hasAuthority('ADMIN')" class="nav-item">
+                    <a class="nav-link fs-5" th:classappend="${#strings.startsWith(view, '/users')? 'active':''}"
+                       aria-current="page" th:href="@{/users}">Пользователи</a>
+                </li>
+                <li sec:authorize="hasAuthority('ADMIN') or hasAuthority('LIBRARIAN')" class="nav-item">
+                    <a class="nav-link fs-5" th:classappend="${#strings.startsWith(view, '/references')? 'active':''}"
+                       aria-current="page" th:href="@{/references}">Справочники</a>
+                </li>
+                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+                    <a class="nav-link fs-5" th:classappend="${#strings.startsWith(view, '/statistics')? 'active':''}"
+                       aria-current="page" th:href="@{/statistics}">Статистика</a>
+                </li>
+                <li sec:authorize="hasAuthority('USER')" class="nav-item">
+                    <a class="nav-link fs-5" th:classappend="${#strings.startsWith(view, '/library')? 'active':''}"
+                       aria-current="page" th:href="@{/library}">Книги</a>
+                </li>
+                <li sec:authorize="hasAuthority('USER')" class="nav-item">
+                    <a class="nav-link fs-5" th:classappend="${#strings.startsWith(view, '/main_cabinet')? 'active':''}"
+                       aria-current="page" th:href="@{/main_cabinet}">Личный кабинет</a>
+                </li>
+            </ul>
+            <a class="btn btn-outline-light" th:href="@{/auth/logout}">Выход</a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

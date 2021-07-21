@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div th:replace="fragments/header :: head(~{}, ~{})"></div>
+<body>
+<header>
+    <div th:replace="fragments/nav-bar :: nav_bar"></div>
+</header>
+<main class="container-fluid">
+    <div th:each="book : ${books}" th:object="${book}">
+    <div class="d-flex text-muted pt-3">
+        <img class="card-img " style="width:100px;height:100px; margin-right: 10px" th:src="@{references/books/image(pid=${book.pid})}"/>
+
+        <div
+                class="pb-3 mb-0 small lh-sm border-bottom w-100">
+            <div class="d-flex justify-content-between">
+                <strong class="text-gray-dark">Название книги</strong>
+                <a class="btn btn-success" href="#">Забронировать</a>
+            </div>
+            <div class="row row-cols-auto">
+                <div class="row " >
+                    <p >Автор:</p>
+                    <p th:text="*{author.getFio()}"></p>
+                </div>
+                <div class="row">
+                    <p>Жанр:</p>
+                </div>
+                <div class="row">
+                    <p>Количество (всего):</p>
+                </div>
+                <div class="row">
+                    <p>Количество (доступных):</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
+<footer th:include="fragments/footer :: footer"></footer>
+</body>
+</html>
